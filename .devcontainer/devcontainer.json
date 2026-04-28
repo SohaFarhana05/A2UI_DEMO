@@ -1,0 +1,36 @@
+{
+  "name": "A2UI Demo",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "onCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && echo 'export PATH=\"$HOME/.local/bin:$PATH\"' >> ~/.bashrc",
+  "postCreateCommand": "git clone https://github.com/google/A2UI.git && echo 'A2UI repo cloned. Set GEMINI_API_KEY and run: cd A2UI/samples/client/lit && npm run demo:restaurant'",
+  "forwardPorts": [5173, 8080],
+  "portsAttributes": {
+    "5173": {
+      "label": "A2UI Web Client",
+      "onAutoForward": "openBrowser"
+    },
+    "8080": {
+      "label": "A2UI Agent Server"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      }
+    }
+  },
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:${containerEnv:HOME}/.local/bin"
+  }
+}
